@@ -1,0 +1,112 @@
+# Project information
+site_name: RemoteLabz Docs
+site_url: https://remotelabz.com/
+site_author: Julien HUBERT &amp; Florent NOLOT &amp; 
+site_description: >-
+    Education software to provide VMs and networks as-a-service.
+
+# Repository
+repo_name: remotelabz/remotelabz
+repo_url: https://github.com/remotelabz/remotelabz
+edit_uri: ""
+
+# Copyright
+copyright: Developed by Julien Hubert &amp; Florent Nolot 2018 - 2024 Modified by Jean-Christophe Huguenin
+
+nav:
+    - 'Getting Started':
+        - What is RemoteLabz ?: index.md
+        - 'Installation':
+                - Installation: administrators/getting-started/ubuntu-standalone.md
+                - SSL: administrators/getting-started/ubuntu-secure.md
+        - 'Update':
+             - Update Front: administrators/getting-started/ubuntu-front-update.md
+             - Update Worker: administrators/getting-started/ubuntu-worker-update.md
+        - Your First Laboratory: users/Teachers/Teachers_lab-creation-tutorial.md
+
+    - 'Using RemoteLabz':
+        - 'Students':
+            - Overview: users/Students/Students_overview.md
+            - Laboratory: users/Students/Students_laboratory.md
+        - 'Teachers':
+            - Overview: users/Teachers/Teachers_overview.md
+            - Laboratory: users/Teachers/Teachers_laboratory.md
+            - Sandbox: users/Teachers/Teachers_sandbox.md
+            - Group Management: users/Teachers/Teachers_group.md
+        - 'Administrators':  
+            - Overview: users/Administrators/Administrators_overview.md
+            - Laboratory: users/Administrators/Administrators_laboratory.md
+            - Group Management: users/Administrators/Administrators_group.md
+            - 'Admin Area':
+               - User Management: users/Administrators/Administrators_user.md
+               - Flavor Management: users/Administrators/Administrators_flavors.md
+               - Control Protocol Management: users/Administrators/Administrators_control_protocols.md
+               - Hypervisors Management: users/Administrators/Administrators_hypervisors.md
+               - Operating System Management: users/Administrators/Administrators_Operating_system.md
+               - Device Template Management: users/Administrators/Administrators_Device_templates.md
+               - Sandbox: users/Administrators/Administrators_sandbox.md
+               - Instance Management: users/Administrators/Administrators_Instance_management.md
+               - Service Management: users/Administrators/Administrators_Service.md
+               - Usage Management: users/Administrators/Administrators_resources_usages.md    
+
+    - 'Contribute':
+        - Contribute to RemoteLabz: developers/github_setup.md
+        - 'Development':
+            - Code Organization: developers/vscode.md
+            - Database Management: developers/Database.md
+            - 'Front':
+                - Certificates management: developers/front/certificates.md
+                - Device Sandbox: developers/front/sandbox.md
+            - 'Worker':
+                - API Commands: developers/worker/APIlist.md
+            - 'Messenger':
+                - States Messages: developers/messenger/code.md
+    
+    - 'Commonly Asked Questions': administrators/getting-started/commonly-asked-questions.md
+    - Troubleshooting: administrators/getting-started/troubleshooting.md
+
+theme:
+    name: material
+    features:
+        - tabs
+    palette:
+        primary: deep purple
+        accent: deep orange
+    logo: images/logo.png
+
+markdown_extensions:
+    - markdown.extensions.admonition
+    - markdown.extensions.attr_list
+    - markdown.extensions.codehilite:
+        guess_lang: false
+    - markdown.extensions.def_list
+    - markdown.extensions.footnotes
+    - markdown.extensions.meta
+    - markdown.extensions.toc:
+        permalink: true
+    - pymdownx.arithmatex
+    - pymdownx.betterem:
+        smart_enable: all
+    - pymdownx.caret
+    - pymdownx.critic
+    - pymdownx.details
+    - pymdownx.emoji:
+        emoji_index: !!python/name:materialx.emoji.twemoji
+        emoji_generator: !!python/name:materialx.emoji.to_svg
+    # - pymdownx.highlight:
+    #     linenums_style: pymdownx-inline
+    - pymdownx.inlinehilite
+    - pymdownx.keys
+    - pymdownx.magiclink:
+        repo_url_shorthand: true
+        user: squidfunk
+        repo: mkdocs-material
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.snippets:
+        check_paths: true
+    - pymdownx.superfences
+    - pymdownx.tabbed
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - pymdownx.tilde

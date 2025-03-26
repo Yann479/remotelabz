@@ -1,31 +1,30 @@
-# remotelabz-worker
+remotelabz-docs
+===============
+[![Build Status](https://jenkins.remotelabz.com/job/remotelabz-docs/job/master/badge/icon)](https://jenkins.remotelabz.com/blue/organizations/jenkins/remotelabz-docs/activity?branch=master)
 
-VM-side of RemoteLabz v3 project (Symfony 6.4).
+Documentation of [RemoteLabz](https://gitlab.remotelabz.com/crestic/remotelabz).
 
-# Requirements
+# How to use
 
-- Ubuntu 20.04
+remotelabz-docs require Python 3, MkDocs and Material for MkDocs.
 
-# Install
-
+On Ubuntu 20.04 LTS
 ```bash
-# Clone this project
-git clone https://gitlab.remotelabz.com/crestic/remotelabz-worker.git
-# Go to the directory
-cd remotelabz-worker
-# grant the right to execute
-sudo chmod +x install
-# Launch the installation script (sudo is required !)
-sudo ./install
+sudo apt-get install python3-pip
+pip3 install mkdocs mkdocs-material
 ```
 
-If it is specified, you can remove the source folder :
-
 ```bash
-cd ../ && rm -rf remotelabz-worker
+git clone https://github.com/remotelabz/remotelabz-docs.git
+cd remotelabz-docs
+mkdocs build
 ```
 
-## Options
-
-- `-p` Port used by remotelabz-worker
-  - Default : `8080`
+To deploy in local your docs to test it
+```bash
+mkdocs serve
+```
+or, if you want to change the listening IP and port
+```bash
+mkdocs serve -a A.B.C.D:8000
+```

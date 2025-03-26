@@ -1,20 +1,19 @@
 {
-    "name": "remotelabz-worker",
-    "version": "1.0.0",
-    "description": "VM-side of RemoteLabz v2 project.",
-    "main": "index.js",
-    "directories": {
-      "doc": "docs"
-    },
-    "scripts": {
-      "consume": "sudo php bin/console messenger:consume worker",
-      "consume-debug": "sudo php bin/console messenger:consume worker -vvv"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git@gitlab.remotelabz.com:crestic/remotelabz-worker.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+  "name": "remotelabz-docs",
+  "version": "1.0.0",
+  "description": "Documentation of RemoteLabz",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "serve": "mkdocs serve",
+    "build": "mkdocs build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.remotelabz.com:crestic/remotelabz-docs.git"
+  },
+  "author": "Julien Hubert, Florent Nolot",
+  "license": "MIT"
 }
