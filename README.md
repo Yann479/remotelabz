@@ -1,31 +1,47 @@
-# remotelabz-worker
+# NetworkBundle
 
-VM-side of RemoteLabz v3 project (Symfony 6.4).
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/crestic-urca/network-bundle/Tests/master) [![codecov](https://img.shields.io/codecov/c/github/crestic-urca/network-bundle)](https://codecov.io/gh/crestic-urca/network-bundle)
 
-# Requirements
+NetworkBundle is a bundle used by RemoteLabz to handle all IP and network related aspects.
 
-- Ubuntu 20.04
+Installation
+============
 
-# Install
+Make sure Composer is installed globally, as explained in the
+[installation chapter](https://getcomposer.org/doc/00-intro.md)
+of the Composer documentation.
 
-```bash
-# Clone this project
-git clone https://gitlab.remotelabz.com/crestic/remotelabz-worker.git
-# Go to the directory
-cd remotelabz-worker
-# grant the right to execute
-sudo chmod +x install
-# Launch the installation script (sudo is required !)
-sudo ./install
+Applications that use Symfony Flex
+----------------------------------
+
+Open a command console, enter your project directory and execute:
+
+```console
+$ composer require remotelabz/network-bundle
 ```
 
-If it is specified, you can remove the source folder :
+Applications that don't use Symfony Flex
+----------------------------------------
 
-```bash
-cd ../ && rm -rf remotelabz-worker
+### Step 1: Download the Bundle
+
+Open a command console, enter your project directory and execute the
+following command to download the latest stable version of this bundle:
+
+```console
+$ composer require remotelabz/network-bundle
 ```
 
-## Options
+### Step 2: Enable the Bundle
 
-- `-p` Port used by remotelabz-worker
-  - Default : `8080`
+Then, enable the bundle by adding it to the list of registered bundles
+in the `config/bundles.php` file of your project:
+
+```php
+// config/bundles.php
+
+return [
+    // ...
+    Remotelabz\NetworkBundle\RemotelabzNetworkBundle::class => ['all' => true],
+];
+```
