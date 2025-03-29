@@ -97,7 +97,7 @@ debug "Running apt-get to grab required packages"
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:ondrej/php # PPRI0603 : Ajout pour l'installation de PHP8.1
 apt-get update
-apt-get install -y ntp apache2 php8.1 php-ssh2 zip unzip qemu qemu-kvm openvswitch-switch git python3.9 python3-pip python3-openvswitch php8.1-xml php8.1-curl php8.1-amqp logrotate lxc screen build-essential cmake libjson-c-dev libwebsockets-dev curl exim4 sshpass expect # PPRI0603 : Passage des modules PHP vers la version 8.1
+apt-get install -y ntp apache2 php8.1 php8.1-ssh2 zip unzip qemu qemu-kvm openvswitch-switch git python3.9 python3-pip python3-openvswitch php8.1-xml php8.1-curl php8.1-amqp logrotate lxc screen build-essential cmake libjson-c-dev libwebsockets-dev curl exim4 sshpass expect # PPRI0603 : Passage des modules PHP vers la version 8.1
 
 # PPRI0603 : Ajout des 8 lignes suivantes, afin de garantir l'installation de numpy (correction d'un problème rencontré avec numpy lors de l'utilisation du script)
 python3.9 -m pip install --upgrade pip
