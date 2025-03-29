@@ -15,10 +15,11 @@ class IPTools extends Bridge
     const LINK_SET_UP       = 'up';
     const LINK_SET_DOWN     = 'down';
     const TUNTAP_MODE_TAP   = 'tap';
+    protected $logger;
 
     public static function getCommand(): string
     {
-        return 'ip';
+        return 'sudo';
     }
 
     /**
@@ -35,7 +36,7 @@ class IPTools extends Bridge
             throw new Exception("Device name cannot be empty.");
         }
 
-        $command = [ 'addr', 'add', $address, 'dev', $name ];
+        $command = [ 'ip', 'addr', 'add', $address, 'dev', $name ];
 
         return static::exec($command);
     }
@@ -48,7 +49,7 @@ class IPTools extends Bridge
      * @return Process The executed process.
      */
     public static function addrShow(string $name = null) : Process {
-        $command = [ 'addr', 'show' ];
+        $command = [ 'ip', 'addr', 'show' ];
 
         if (!empty($name)) {
             array_push($command, 'dev', $name);
@@ -70,7 +71,7 @@ class IPTools extends Bridge
             throw new Exception("Device name cannot be empty.");
         }
 
-        $command = [ 'link', 'delete', $name ];
+        $command = [ 'ip', 'link', 'delete', $name ];
         
         return static::exec($command);
     }
@@ -83,7 +84,7 @@ class IPTools extends Bridge
      * @return Process The executed process.
      */
     public static function linkShow(string $name = null) : Process {
-        $command = [ 'link', 'show' ];
+        $command = [ 'ip', 'link', 'show' ];
 
         if (!empty($name)) {
             array_push($command, 'dev', $name);
@@ -106,7 +107,7 @@ class IPTools extends Bridge
             throw new Exception("Device name cannot be empty.");
         }
 
-        $command = [ 'link', 'set', $name, $operand ];
+        $command = [ 'ip', 'link', 'set', $name, $operand ];
         
         return static::exec($command);
     }
@@ -121,17 +122,18 @@ class IPTools extends Bridge
      * @throws ProcessFailedException If the process didn't terminate successfully.
      * @return Process The executed process.
      */
-    public static function routeAdd(string $route, int $tableId = 254) : Process {
+    public static function routeAdd(string $route, string $gateway) : Process {
         if (empty($route)) {
             throw new Exception("Route cannot be empty.");
         }
 
-        $route = explode(' ', $route);
+        //$route = explode(' ', $route);
 
-        $command = [ 'route', 'add' ];
-        array_push($command, ...$route);
-        array_push($command, 'table', (string) $tableId);
-        
+        $command = [ 'ip', 'route', 'add' ];
+        array_push($command, $route);
+        array_push($command, 'via');
+        array_push($command,$gateway);
+
         return static::exec($command);
     }
 
@@ -144,7 +146,7 @@ class IPTools extends Bridge
      * @return Process The executed process.
      */
     public static function routeShow(int $tableId = 254) : Process {
-        $command = [ 'route', 'show', 'table', (string) $tableId ];
+        $command = [ 'ip', 'route', 'show', 'table', (string) $tableId ];
         
         return static::exec($command);
     }
@@ -159,18 +161,19 @@ class IPTools extends Bridge
      * @throws ProcessFailedException If the process didn't terminate successfully.
      * @return Process The executed process.
      */
-    public static function routeDelete(string $route, int $tableId = 254) : Process {
+    public static function routeDelete(string $route, string $gateway=null){
         if (empty($route)) {
             throw new Exception("Route cannot be empty.");
+        }     
+
+        $command = [ 'ip', 'route', 'del' ];
+        array_push($command, $route);
+        if (!is_null($gateway)) {
+            array_push($command, 'via');
+            array_push($command,$gateway);
         }
-
-        $route = explode(' ', $route);
-
-        $command = [ 'route', 'del' ];
-        array_push($command, ...$route);
-        array_push($command, 'table', (string) $tableId);
-        
-        return static::exec($command);
+            return static::exec($command);
+                throw new Exception("Route delete in error");
     }
 
     /**
@@ -191,7 +194,7 @@ class IPTools extends Bridge
         $selector = explode(' ', $selector);
         $action = explode(' ', $action);
 
-        $command = [ 'rule', 'add' ];
+        $command = [ 'ip', 'rule', 'add' ];
         array_push($command, ...$selector);
         array_push($command, ...$action);
 
@@ -363,7 +366,7 @@ class IPTools extends Bridge
 // TODO : test if the json_decode return NULL
 // The Kea DHCP accept comment with // but it's not json valide
         $tab = json_decode($fileContent, true);
-        
+
         if (!static::NetworkIfExistDHCP($host, $port, $filename, $address)) {
             $idMAX = 1;
             //looking for the last ID to generate a new ID for the new pool
@@ -399,9 +402,9 @@ class IPTools extends Bridge
             "service" => [ "dhcp4" ],
             "arguments" => $tab
         );
-    
+
         $contenu = json_encode($json);
-        
+
         #on envoie le json à l'agent KEA
         $options = array(
             'http' => array(
@@ -410,24 +413,24 @@ class IPTools extends Bridge
                 'content' => $contenu
             )
         );
-    
+
         $url = "http://$host:$port";
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
-    
+
         #on met le json des arguments de la commande write sous forme de tab php
         $arguments = '{"filename": '.$filename.'}';
         $arguments = json_decode($arguments, true);
-        
+
         $json = array(
             "command" => "config-write",
             "service" => [ "dhcp4" ],
             "arguments" => $tab
         );
-    
+
         $contenu = json_encode($json);
-    
+
         #on envoie le json à l'agent KEA
         $options = array(
             'http' => array(
@@ -436,11 +439,11 @@ class IPTools extends Bridge
                 'content' => $contenu
             )
         );
-    
+
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
-        
+
         //return true;
     
     }
