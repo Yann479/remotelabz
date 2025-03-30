@@ -1,7 +1,7 @@
 The "rector.php" script can be used to automate the modification of annotations in Entity, to attributes compatible with PHP 8.x
 
 To use this script, install rector via the command :
-`composer require rector/rector:^0.16 --dev```
+`composer require rector/rector:^0.16 --dev`
 
 Create a file named “rector.php” at the root of the project, and insert the code.
 
